@@ -16,6 +16,12 @@ To install this code, simply copy or fork the repo and upload it onto your compu
 ## 📝 Usage
 Once intialised the code can be run via the terminal and the user is able to make guesses.
 
+The program will ask for the user to select a letter.
+
+Once selected the program will assess the guess to ensure it is a valid letter, and whether it is in the chosen word.
+
+Once determined it will reduce the number of valid letters remaining or reduce the users life count by 1.
+
 ## 📚 File Structure
 The repo contains this README file, as well as milstones that makred my progress with creating the code. Currently the repo contains milestones 2 and 3 respectivley
 
