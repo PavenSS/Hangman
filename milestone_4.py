@@ -3,45 +3,37 @@ import random
 
 class Hangman:
    def __init__(self, word_list, num_lives = 5):
-    # Creating a list of my favouite fruits
-    word = random.choice(word_list)
+    # A fruit is selected at random
+    self.word = random.choice(word_list)
     
-    # creating a set list for the number of letters in the randomly chosen word
-    num_letters_set = set()
-    for letter in word:
-        if letter != num_letters_set:
-            num_letters_set.append(letter)
-    num_letters = enumerate(num_letters_set)
-    
-    # creating a list of underscores for every character in word.
-    blank = ""
-    for guess in word:
-        word_guessed += "_"
-    word_guessed = list(blank)
+    # Initialize the number of lives
+    self.num_lives = num_lives
+    # Initialize word_guessed with underscores for each letter in the word
+    self.num_letters = len(set(self.word))  # Count unique letters in the word
+    self.word_guessed = ["_"] * len(self.word)  # Create underscores for each letter in the word
+    self.list_of_guesses = []  # List to keep track of guessed letters
 
-    #creating a repository for each guess
-    list_of_guesses=[]
-
-    def check_guess(guess): # performs a check of the guessed letter against the chosen word.
-        if guess.lower in word: #If sucessfull
+    def check_guess(self, guess): # performs a check of the guessed letter against the chosen word.
+        if guess.lower() in self.word: #If sucessfull
             print(f"Good guess! {guess} is in the word.") #Affirms guessed letter is in word. 
-            for idx, guess.lower in word: #Cycles through every letter within the chosen word
-                if guess.lower == word: #When the letter is found
-                    word_guessed[idx] = guess #Updates the word guessed with the leeter in the correct place
-            num_letters += -1 # reduces the number of unique letters left by 1.
+            for idx, letter in enumerate(self.word): #Cycles through every letter within the chosen word
+                if letter == guess.lower(): #When the letter is found
+                    self.word_guessed[idx] = guess.lower() #Updates the word guessed with the leeter in the correct place
+            self.num_letters -= 1 # reduces the number of unique letters left by 1.
         else: #if not in the word.
-            num_lives += -1 #reduces the number of lives by 1.
-            print(f"Sorry, {guess} is not in the word.") #Relays to the user. 
-            print(f"You have {num_lives} lives left.") #Reduces life count by 1.
+            self.num_lives -= 1 #reduces the number of lives by 1.
+            print(f"Sorry, {guess} is not in the word.") 
+            print(f"You have {self.num_lives} lives left.") 
 
-    def ask_for_input():
+    def ask_for_input(self):
         while True:
             guess = input("Guess a letter: ")
-            if guess.isalpha() == False and len(guess) == 1:
+            if not guess.isalpha() and len(guess) != 1:
                 print("Invalid letter. Please, enter a single alphabetical character.")
-            elif guess in list_of_guesses:
+            elif guess in self.list_of_guesses:
                 print("You already tried that letter!")
             else:
-                check_guess(guess)
-                list_of_guesses.append(guess)
+                self.check_guess(guess)
+                self.list_of_guesses.append(guess)
+            return guess
     ask_for_input()
